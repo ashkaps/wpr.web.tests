@@ -53,5 +53,9 @@ public class Common {
 		}
 		return element;
 	}
+	
+	public WebElement object(String uiObjectName) {
+		return vars.getLocatorProps().get(uiObjectName);
+	}
 
 }

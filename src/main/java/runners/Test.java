@@ -11,6 +11,10 @@ public class Test {
 	  private static final Logger LOGGER = LogManager.getLogger(Test.class.getName());
 	     
 		public static void main(String[] args) {
+			
+			
+			
+			System.out.println(System.getProperty("user.dir"));
 			System.setProperty("webdriver.chrome.driver", "/Users/aishvaryakapoor/Downloads/selenium/chromedriver");
 			WebDriver driver = new ChromeDriver();
 			driver.get("http://wprdev.azurewebsites.net/account/login");

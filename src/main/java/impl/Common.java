@@ -6,6 +6,7 @@ public class Common {
 		String userid = null;
 		String pwd = null;
 		
+		
 	}
 
 }
