@@ -1,12 +1,13 @@
 package impl;
 
+import driver.Global;
+
 public class Login {
 	
 	public void login() {
-		String userid = null;
-		String pwd = null;
-		
-		
+		Global.inputfield.setText("username", "");
+		Global.inputfield.setPassword("password", "");
+		Global.button.click("login");
 	}
 
 }
