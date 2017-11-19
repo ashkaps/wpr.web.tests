@@ -1,8 +1,11 @@
 package excelUtilities;
 
+import static org.junit.Assert.assertTrue;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -14,6 +17,8 @@ import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.openqa.selenium.By;
+import org.testng.collections.CollectionUtils;
 import org.testng.collections.Lists;
 import org.testng.collections.Maps;
 
@@ -27,6 +32,7 @@ public class ExcelReader {
 	private static final String UI_OBJ_NAME = "uiObjName";
 	Variables variables = new Variables();
 	Elements commonWeb = new Elements();
+	List<String> errorLocatorList = new ArrayList<>();
 
 	public List<HashMap<String, List<LinkedHashMap<String, String>>>> loadExcelData(File fileName) {
 		String sheetName;
@@ -127,10 +133,15 @@ public class ExcelReader {
 							rowData.put(headerCells.next(), cell);
 						}
 						rowList.add(rowData);
-						variables.getLocatorProps().put(rowData.get(UI_OBJ_NAME).toString(), commonWeb.byLocator(rowData.get(LOCATOR_TYPE).toString(), rowData.get(LOCATOR_VALUE).toString()));
+						By by = commonWeb.byLocator(rowData.get(LOCATOR_TYPE).toString(), rowData.get(LOCATOR_VALUE).toString());
+						variables.getLocatorProps().put(rowData.get(UI_OBJ_NAME).toString(), by);
+						if(by == null) {
+							errorLocatorList.add(rowData.get(UI_OBJ_NAME).toString());
+						}
 					}
 				}
 				sheetData.put(sheetName, rowList);
+				validateLocatorTypes();
 
 			}
 			allSheetData.add(sheetData);
@@ -148,5 +159,12 @@ public class ExcelReader {
 		}
 		return allSheetData;
 
+	}
+
+	private void validateLocatorTypes() {
+		// TODO add logger and reporting
+		if(!CollectionUtils.hasElements(errorLocatorList)) {
+			assertTrue(false);
+		}
 	}
 }
