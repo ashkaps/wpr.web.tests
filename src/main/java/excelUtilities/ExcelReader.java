@@ -18,7 +18,7 @@ import org.testng.collections.Lists;
 import org.testng.collections.Maps;
 
 import driver.Variables;
-import webUtilities.Common;
+import webUtilities.Elements;
 
 public class ExcelReader {
 	
@@ -26,7 +26,7 @@ public class ExcelReader {
 	private static final String LOCATOR_TYPE = "locatorType";
 	private static final String UI_OBJ_NAME = "uiObjName";
 	Variables variables = new Variables();
-	Common commonWeb = new Common();
+	Elements commonWeb = new Elements();
 
 	public List<HashMap<String, List<LinkedHashMap<String, String>>>> loadExcelData(File fileName) {
 		String sheetName;
@@ -127,7 +127,7 @@ public class ExcelReader {
 							rowData.put(headerCells.next(), cell);
 						}
 						rowList.add(rowData);
-						variables.getLocatorProps().put(rowData.get(UI_OBJ_NAME).toString(), commonWeb.returnWebElement(rowData.get(LOCATOR_TYPE).toString(), rowData.get(LOCATOR_VALUE).toString()));
+						variables.getLocatorProps().put(rowData.get(UI_OBJ_NAME).toString(), commonWeb.byLocator(rowData.get(LOCATOR_TYPE).toString(), rowData.get(LOCATOR_VALUE).toString()));
 					}
 				}
 				sheetData.put(sheetName, rowList);

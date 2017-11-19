@@ -1,5 +1,7 @@
 package webUtilities;
 
+import java.util.List;
+
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -7,10 +9,14 @@ import org.openqa.selenium.WebElement;
 
 import driver.Variables;
 
-public class Common {
+public class Elements {
 	Variables vars = new Variables();
 
-	public WebElement returnWebElement(String locType, String locator) {
+	public List<WebElement> returnWebElements(String locType, String locator) {
+		return findElements(byLocator(locType, locator));
+	}
+
+	public By byLocator(String locType, String locator) {
 		By by = null;
 		switch (StringUtils.lowerCase(locType.trim())) {
 		case "id":
@@ -39,23 +45,39 @@ public class Common {
 			break;
 		default:
 		}
-		return findElement(by);
+		return by;
 	}
-	
+
+	public List<WebElement> findElements(By by) {
+		List<WebElement> elements = null;
+		try {
+			elements = vars.getDriver().findElements(by);
+		} catch (NoSuchElementException e) {
+
+		} catch (Exception e) {
+
+		}
+		return elements;
+	}
+
 	public WebElement findElement(By by) {
 		WebElement element = null;
 		try {
 			element = vars.getDriver().findElement(by);
 		} catch (NoSuchElementException e) {
-			
+
 		} catch (Exception e) {
-			
+
 		}
 		return element;
 	}
-	
+
 	public WebElement object(String uiObjectName) {
-		return vars.getLocatorProps().get(uiObjectName);
+		return findElement(vars.getLocatorProps().get(uiObjectName));
+	}
+
+	public List<WebElement> objects(String uiObjectName) {
+		return findElements(vars.getLocatorProps().get(uiObjectName));
 	}
 
 }

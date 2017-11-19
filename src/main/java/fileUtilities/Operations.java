@@ -12,7 +12,7 @@ public class Operations {
 	
 	public void loadObjectsToProperties(File fileName) {
 		List<HashMap<String,List<LinkedHashMap<String,String>>>> objectsExcel = excel.loadExcelData(fileName);
-		Iterable sheetIte = objectsExcel.iterator();
+//		Iterable sheetIte = objectsExcel.iterator();
 
 	}
 

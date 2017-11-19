@@ -1,6 +1,6 @@
 package impl;
 
-public class Common {
+public class Login {
 	
 	public void login() {
 		String userid = null;
