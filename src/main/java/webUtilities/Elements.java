@@ -7,10 +7,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 
-import driver.Variables;
+import driver.Global;
+
 
 public class Elements {
-	Variables vars = new Variables();
 
 	public List<WebElement> returnWebElements(String locType, String locator) {
 		return findElements(byLocator(locType, locator));
@@ -51,7 +51,7 @@ public class Elements {
 	public List<WebElement> findElements(By by) {
 		List<WebElement> elements = null;
 		try {
-			elements = vars.getDriver().findElements(by);
+			elements = Global.driver.findElements(by);
 		} catch (NoSuchElementException e) {
 
 		} catch (Exception e) {
@@ -63,7 +63,7 @@ public class Elements {
 	public WebElement findElement(By by) {
 		WebElement element = null;
 		try {
-			element = vars.getDriver().findElement(by);
+			element = Global.driver.findElement(by);
 		} catch (NoSuchElementException e) {
 
 		} catch (Exception e) {
@@ -73,11 +73,11 @@ public class Elements {
 	}
 
 	public WebElement object(String uiObjectName) {
-		return findElement(vars.getLocatorProps().get(uiObjectName));
+		return findElement(Global.locatorProps.get(uiObjectName));
 	}
 
 	public List<WebElement> objects(String uiObjectName) {
-		return findElements(vars.getLocatorProps().get(uiObjectName));
+		return findElements(Global.locatorProps.get(uiObjectName));
 	}
 
 }

@@ -1,5 +1,13 @@
 package driver;
 
+import java.util.HashMap;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+
+import com.google.common.collect.Maps;
+
 import webUtilities.Button;
 import webUtilities.Checkbox;
 import webUtilities.Dropdown;
@@ -22,6 +30,9 @@ public class Global {
 	public static Validate validate = null;
 	public static Wait wait = null;
 	public static Window window = null;
+	public static JavascriptExecutor jse = null;
+	public static WebDriver driver = null;
+	public static HashMap<String,By> locatorProps = Maps.newHashMap();
 	
 	public Global() {
 		button = new Button();
@@ -36,5 +47,7 @@ public class Global {
 		window = new Window();
 		button = new Button();
 		button = new Button();
+		jse = (JavascriptExecutor) driver;
 	}
+
 }

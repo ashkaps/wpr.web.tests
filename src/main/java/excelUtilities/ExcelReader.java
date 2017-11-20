@@ -22,7 +22,7 @@ import org.testng.collections.CollectionUtils;
 import org.testng.collections.Lists;
 import org.testng.collections.Maps;
 
-import driver.Variables;
+import driver.Global;
 import webUtilities.Elements;
 
 public class ExcelReader {
@@ -30,7 +30,6 @@ public class ExcelReader {
 	private static final String LOCATOR_VALUE = "locatorValue";
 	private static final String LOCATOR_TYPE = "locatorType";
 	private static final String UI_OBJ_NAME = "uiObjName";
-	Variables variables = new Variables();
 	Elements commonWeb = new Elements();
 	List<String> errorLocatorList = new ArrayList<>();
 
@@ -134,7 +133,7 @@ public class ExcelReader {
 						}
 						rowList.add(rowData);
 						By by = commonWeb.byLocator(rowData.get(LOCATOR_TYPE).toString(), rowData.get(LOCATOR_VALUE).toString());
-						variables.getLocatorProps().put(rowData.get(UI_OBJ_NAME).toString(), by);
+						Global.locatorProps.put(rowData.get(UI_OBJ_NAME).toString(), by);
 						if(by == null) {
 							errorLocatorList.add(rowData.get(UI_OBJ_NAME).toString());
 						}

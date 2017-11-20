@@ -1,13 +1,13 @@
 package webUtilities;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
-
-import driver.Variables;
+import org.openqa.selenium.WebElement;
 
 public class Validate {
-	Variables vars = new Variables();
 	Wait wait = new Wait();
+	InputField inputField = new InputField();
+	Dropdown dropdown = new Dropdown();
+	Elements elements = new Elements();
 
 	public boolean isElementDisplayed(String uiObjectName) {
 		try {
@@ -37,6 +37,62 @@ public class Validate {
 		} catch (Exception e) {
 			return false;
 		}
+	}
+	
+	public boolean textOfInput(String uiObjectName, String expected) {
+		boolean expActualSame = false;
+		String actual = inputField.getText(uiObjectName);
+		if(actual != null && expected.trim().equalsIgnoreCase(actual.trim())) {
+			expActualSame = true;
+		} 
+		return expActualSame;
+	}
+	
+	public boolean textOfDropdown(String uiObjectName, String expected) {
+		WebElement element = dropdown.getSelectedOption(uiObjectName);
+		String actual = null;
+		boolean textOfDropdown = false;
+		if(element != null) {
+			actual = element.getText();
+			if(actual != null && expected.trim().equalsIgnoreCase(actual.trim())) {
+				textOfDropdown = true;
+			}
+		}
+		return textOfDropdown;
+	}
+	
+	public boolean isRadioSelected(String uiObjectName) {
+		boolean isRadioSelected = false;
+		WebElement button = elements.object(uiObjectName);
+		try {
+			if(button.isSelected()) {
+				isRadioSelected = true;
+			}
+		} catch (Exception e) {
+			
+		}
+		return isRadioSelected;
+	}
+
+	public boolean isRadioNotSelected(String uiObjectName) {
+		boolean isRadioNotSelected = false;
+		WebElement button = elements.object(uiObjectName);
+		try {
+			if(!button.isSelected()) {
+				isRadioNotSelected = true;
+			}
+		} catch (Exception e) {
+			
+		}
+		return isRadioNotSelected;
+	}
+	
+	public boolean isChechboxSelected(String uiObjectName) {
+		return isRadioSelected(uiObjectName);
+	}
+	
+	public boolean isCheckboxNotSelected(String uiObjectName) {
+		return isRadioNotSelected(uiObjectName);
 	}
 
 }

@@ -12,14 +12,13 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import driver.Variables;
+import driver.Global;
 
 public class Wait {
-	Variables vars = new Variables();
 	Elements common = new Elements();
 
 	public void forPageToLoad() {
-		new WebDriverWait(vars.getDriver(), 30).until(webDriver -> ((JavascriptExecutor) webDriver)
+		new WebDriverWait(Global.driver, 30).until(webDriver -> ((JavascriptExecutor) webDriver)
 				.executeScript("return document.readyState").equals("complete"));
 	}
 
@@ -32,7 +31,7 @@ public class Wait {
 	}
 
 	private FluentWait<WebDriver> fluentWait(int seconds) {
-		return new FluentWait<>(vars.getDriver()).withTimeout(seconds, TimeUnit.SECONDS)
+		return new FluentWait<>(Global.driver).withTimeout(seconds, TimeUnit.SECONDS)
 				.pollingEvery(200, TimeUnit.MILLISECONDS).ignoring(NoSuchElementException.class, TimeoutException.class)
 				.ignoring(StaleElementReferenceException.class);
 	}

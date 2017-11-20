@@ -5,6 +5,8 @@ import java.util.List;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
+import driver.Global;
+
 public class Dropdown {
 
 	Elements common = new Elements();
@@ -57,6 +59,10 @@ public class Dropdown {
 		} catch (Exception e) {
 			return null;
 		}
+	}
+	
+	public void selectWithJs(int index) {
+//		Global.jse.executeScript("return document.getElementById('id').selectedIndex = '" + index + "';");
 	}
 
 }

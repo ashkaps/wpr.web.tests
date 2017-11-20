@@ -1,27 +1,30 @@
 package webUtilities;
 
-import driver.Variables;
+import driver.Global;
 
 public class Window {
-	Variables vars = new Variables();
 	private static String parentWinHandle = null;
 
 	public void switchToChild() {
-		parentWinHandle = vars.getDriver().getWindowHandle();
-		for (String winHandle : vars.getDriver().getWindowHandles()) {
+		parentWinHandle = Global.driver.getWindowHandle();
+		for (String winHandle : Global.driver.getWindowHandles()) {
 			if (!winHandle.equalsIgnoreCase(parentWinHandle)) {
-				vars.getDriver().switchTo().window(winHandle);
+				Global.driver.switchTo().window(winHandle);
 			}
 		}
 	}
 	
 	public void switchToParent() {
-		vars.getDriver().switchTo().window(parentWinHandle);
+		Global.driver.switchTo().window(parentWinHandle);
 	}
 	
 	public void closeChildAndSwitchToParent() {
-		vars.getDriver().close();
-		vars.getDriver().switchTo().window(parentWinHandle);
+		Global.driver.close();
+		Global.driver.switchTo().window(parentWinHandle);
+	}
+	
+	public void scrollWithJs(int x, int y) {
+		Global.jse.executeScript("window.scrollBy(" + x + "," + y + ")");	
 	}
 
 }

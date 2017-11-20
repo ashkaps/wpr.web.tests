@@ -6,14 +6,13 @@ import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 
-import driver.Variables;
+import driver.Global;
 
 public class Screenshot {
 	private static final String SCREENSHOT_OUTPUT = "screenshotOutput";
-	Variables vars = new Variables();
 
 	public void take(String outputPath) throws Exception {
-		File scrFile = ((TakesScreenshot) vars.getDriver()).getScreenshotAs(OutputType.FILE);
+		File scrFile = ((TakesScreenshot) Global.driver).getScreenshotAs(OutputType.FILE);
 		FileUtils.copyFile(scrFile, new File(outputPath));
 	}
 

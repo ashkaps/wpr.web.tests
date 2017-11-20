@@ -1,5 +1,7 @@
 package webUtilities;
 
+import driver.Global;
+
 public class Button {
 	Elements common = new Elements();
 
@@ -10,5 +12,9 @@ public class Button {
 
 		}
 	}
-
+	
+	public void clickWithJs(String uiObjectName) {
+		Global.jse.executeScript("arguments[0].click();", common.object(uiObjectName));
+	}
+	
 }
