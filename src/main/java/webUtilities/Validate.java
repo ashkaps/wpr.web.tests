@@ -1,5 +1,6 @@
 package webUtilities;
 
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 
@@ -8,6 +9,20 @@ public class Validate {
 	InputField inputField = new InputField();
 	Dropdown dropdown = new Dropdown();
 	Elements elements = new Elements();
+	Link link = new Link();
+	
+	public boolean linkContains(String uiObjectName, String expected) {
+		boolean linkContains = false;
+		WebElement element = link.get(uiObjectName);
+		String linkText = null;
+		if(element != null) {
+			linkText = element.getAttribute("href");
+			if(StringUtils.contains(linkText, expected)) {
+				linkContains = true;
+			}
+		}
+		return linkContains;
+	}
 
 	public boolean isElementDisplayed(String uiObjectName) {
 		try {

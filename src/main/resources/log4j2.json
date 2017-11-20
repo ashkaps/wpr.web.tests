@@ -1,13 +1,39 @@
 {
 	"configuration": {
 		"name": "Default",
+		"properties": {
+			"property": [
+				{
+					"name": "log-path",
+					"value": "logs"
+				},
+				{
+					"name": "archive",
+					"value": "${log-path}/archive"
+				}
+			]
+		},
 		"appenders": {
-			"RollingFile": {
-				"name": "File",
-				"fileName": "${log-path}/logfile.log",
-				"filePattern": "${log-path}/archive/logfile-%d{MM-dd-yy-HH-mm-ss}-%i.log.gz",
+			"Console": {
+				"name": "Console-Appender",
+				"target": "SYSTEM_OUT",
 				"PatternLayout": {
-					"pattern": "%d{yyyy-MM-dd HH:mm:ss} %-5p %tid %c{1}:%L - %m%n"
+					"pattern": "[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n"
+				}
+			},
+			"File": {
+				"name": "File-Appender",
+				"fileName": "${log-path}/logfile.log",
+				"PatternLayout": {
+					"pattern": "[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n"
+				}
+			},
+			"RollingFile": {
+				"name": "RollingFile-Appender",
+				"fileName": "${log-path}/rollingfile.log",
+				"filePattern": "${archive}/rollingfile.log.%d{yyyy-MM-dd-hh-mm}.gz",
+				"PatternLayout": {
+					"pattern": "[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n"
 				},
 				"Policies": {
 					"SizeBasedTriggeringPolicy": {
@@ -15,15 +41,34 @@
 					}
 				},
 				"DefaultRolloverStrategy": {
-					"max": "10"
+					"max": "30"
 				}
 			}
 		},
 		"loggers": {
+			"logger": {
+				"name": "src.main.java",
+				"level": "debug",
+				"additivity": "false",
+				"appender-ref": [
+					{
+						"ref": "Console-Appender",
+						"level": "info"
+					},
+					{
+						"ref": "File-Appender",
+						"level": "error"
+					},
+					{
+						"ref": "RollingFile-Appender",
+						"level": "debug"
+					}
+				]
+			},
 			"root": {
 				"level": "debug",
 				"appender-ref": {
-					"ref": "File"
+					"ref": "Console-Appender"
 				}
 			}
 		}
